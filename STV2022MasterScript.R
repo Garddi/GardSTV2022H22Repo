@@ -66,10 +66,18 @@ for(x in unique(questionsmeta$id)){
   it <- 100*(which(unique(questionsmeta$id) == x) / length(unique(questionsmeta$id)))
   cat(paste0(sprintf("Progress: %.4f%%             ", it), "\r"))
   
-  try(d[[x]] <- get_question(questionid = x, good_manners = 1))
+  try(d[[x]] <- get_question(questionid = x, good_manners = 0))
 }
 
-get_question(questionid = "1370", good_manners = 0)
 questiontext <- do.call("rbind", d)
+
+checks <- questionsmeta %>% 
+  filter(!(questionsmeta$id %in% questiontext$id))
+
+save(questiontext, file = "data/questiontext.Rdata")
+save(checks, file = "data/outliers.Rdata")
+
+get_question(questionid = "77134", good_manners = 0)
+
 
 table(questionsmeta$type)
