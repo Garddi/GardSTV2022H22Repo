@@ -15,6 +15,8 @@ library(spacyr)
 
 ##Packages done, lets find the data
 
+## First i find the relevant sessions, and I throw away the sessions I don't need
+
 sessions <- get_parlsessions()
 
 sessions <- sessions %>% 
@@ -24,10 +26,13 @@ sessions <- sessions %>%
                      "1988-89", "1987-88", "1986-87")))
 head(allmps$substitute_mp)
 
+## Creating some empty lists to put questionmeta data into
 
 a <- list()
 b <- list()
 c <- list()
+
+## Looping over the sessions to retrieve metadata on all questions
 
 for(x in unique(sessions$id)){
   it <- 100*(which(unique(sessions$id) == x)/length(unique(sessions$id)))
@@ -36,16 +41,18 @@ for(x in unique(sessions$id)){
   a[[x]] <- get_session_questions(sessionid = x, 
                                   q_type = "interpellasjoner", 
                                   status = NA,
-                                  good_manners = 0)
+                                  good_manners = 1)
   b[[x]] <- get_session_questions(sessionid = x, 
                                   q_type = "sporretimesporsmal",
                                   status = NA,
-                                  good_manners = 0)
+                                  good_manners = 1)
   try(c[[x]] <- get_session_questions(sessionid = x,
-                                  q_type = "skriftligesporsmal",
-                                  status = NA,
-                                  good_manners = 0))
+                                      q_type = "skriftligesporsmal",
+                                      status = NA,
+                                      good_manners = 1))
 }
+
+## unlist them
 
 aex <- do.call("rbind", a)
 bex <- do.call("rbind", b)
@@ -54,6 +61,8 @@ cex <- do.call("rbind", c)
 dlist <- list(aex, bex, cex)
 
 questionsmeta <- do.call("rbind", dlist)
+
+## Now we have a frame, lets remove reduntant objects
 
 rm(aex, bex, cex, dlist)
 
@@ -69,37 +78,51 @@ for(x in unique(questionsmeta$id)){
   it <- 100*(which(unique(questionsmeta$id) == x) / length(unique(questionsmeta$id)))
   cat(paste0(sprintf("Progress: %.4f%%             ", it), "\r"))
   
-  try(d[[x]] <- get_question(questionid = x, good_manners = 0))
+  try(d[[x]] <- get_question(questionid = x, good_manners = 1))
 }
 
+## Code is try to catch some frames that return empty question sets. 
+## Seems to be a lack on stortingets end. 
+
+
 questiontext <- do.call("rbind", d)
+
+## Checking for patterns in the calls that return empty XML's
 
 checks <- questionsmeta %>% 
   filter(!(questionsmeta$id %in% questiontext$id))
 
+## Saving the objects, both data and outliers (just incase)
+
 save(questiontext, file = "data/questiontext.Rdata")
 save(checks, file = "data/outliers.Rdata")
 
+## Removing redundant objects
+
 rm(d, it, x)
+
+## Loading the data
 
 load("data/questiontext.Rdata")
 
-get_question(questionid = "77134", good_manners = 0)
-
+## Checking the spread of questiontypes.
 
 table(questionsmeta$type)
 
 
+##### Now to join it with the MP info.
 
+### Retrieving the MP's, roughly same procedure as last chunk miss Sophie. 
 
-
-### Retrieving the MP's
+## MP data is stored in parliament periods, instead of sessions.
 
 periods_storting <- get_parlperiods()
 
 periods_storting <- periods_storting %>%
   filter(id %in% c("2021-2025", "2017-2021", "2013-2017", "2009-2013", 
                    "2005-2009", "2001-2005", "1997-2001", "1993-97"))
+
+## Same procedure as every chunk James
 
 j <- list()
 
@@ -108,17 +131,20 @@ for (x in periods_storting$id) {
                                good_manners = 0)
 }
 
+## Schall!
 
 allmps <- do.call("rbind", j)
 
 save(allmps, file = "data/mpdata.Rdata")
+
+## Limiting the data somewhat, putting the frame on a diet to make it thinner
 
 allmpsparties <- allmps %>% 
   select(question_from_id = mp_id, firstname,
          lastname, gender, party_id, county_id, period_id)
 rm(j)
 
-### Prepping the target data for merging. 
+### Prepping the target data for merging. Giving the questions a period id.
 
 questiontext <- questiontext %>%
   mutate(period_id = case_when(session_id == "2021-2022" ~ "2021-2025",
@@ -148,7 +174,11 @@ questiontext <- questiontext %>%
                                session_id == "1997-98" ~ "1997-2001", 
                                session_id == "1996-97" ~ "1993-1997"))
 
+## Lets have a gander
+
 table(questiontext$session_id, questiontext$period_id)
+
+# Looks alright
 
 ### Joining the MP's
 
@@ -169,15 +199,15 @@ save(df, file = "data/usedata.Rdata")
 ##rise up out of the sea, having seven heads and ten horns, and
 ##upon his horns ten crowns, and upon his heads the name of blasphemy.
 
-## Or how I learned to stop worrying and cry over my amounts of data.
+## Scene I, our players, the questiondata, named df, or usedata as a file,
+##enters the stage. 
 
-## Scene I, our players, the questiondata enters the stage. 
+load("data/usedata.Rdata")
 
 ## Alas torn by its varying levels of inputs, it felt conflicted
 
 ## The LORD, smit him down and split him into several text-inputs
 
-load("data/usedata.Rdata")
 
 justificationtexts <- df %>% 
   select(text = justification, 
@@ -217,6 +247,8 @@ answertexts <- answertexts %>%
 ## The lamb also thought that surely there was an easier way to do this for all
 ##units, but thought nothing of it for now. 
 
+## I could have just rbound them first and then dropped the NA's actually...
+
 ## Scene III, The lamb broke the third seal, and blo- I mean the texts were combined
 
 fulltexts <- rbind(justificationtexts, questiontexts, answertexts)
@@ -239,9 +271,9 @@ fulltexts <- fulltexts %>%
 ## Ok this is too much. Can't be bothered anymore. Next step I tokenize the text
 
 tokensquestions <- fulltexts %>% 
-  unnest_tokens(input = text_l,
-                output = word,
-                token = "words")
+  unnest_tokens(input = text_l, ## Input from the df that I want tokenized
+                output = word,  ## name of the column that it creates
+                token = "words")## what type of tokenizing it does
 
 
 tokensquestions <- tokensquestions %>% 
@@ -260,7 +292,8 @@ graphframe %>%
 
 mean(graphframe$amount, na.rm = TRUE)
 
-## Average number of tokens in each question is 410.
+## Average number of tokens in each question is 410. Note the multiple peaks
+##indicating a mixed model distribution
 
 ### Lets work on some fancy visualisation, I'll throw these into the pdf when I get to it
 
@@ -293,6 +326,7 @@ visframe %>% head(300) %>%
 
 Sys.setlocale("LC_ALL", "") ## This line is due to weirdness on my comp
                             ## For some reason my locale is set to C by default
+                            ## And i mean C the programming language
 
 questiontokens <- fulltexts %>% 
   group_by(id) %>% 

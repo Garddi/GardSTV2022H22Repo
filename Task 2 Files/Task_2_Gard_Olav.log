@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.8.28) (preloaded format=pdflatex 2022.9.12)  28 SEP 2022 10:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.8.28) (preloaded format=pdflatex 2022.9.12)  28 SEP 2022 11:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -433,69 +433,73 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 <Img/Zipf_law_1.PNG, id=62, 562.35094pt x 347.04657pt>
 File: Img/Zipf_law_1.PNG Graphic file (type png)
 <use Img/Zipf_law_1.PNG>
-Package pdftex.def Info: Img/Zipf_law_1.PNG  used on input line 69.
+Package pdftex.def Info: Img/Zipf_law_1.PNG  used on input line 73.
 (pdftex.def)             Requested size: 337.41316pt x 208.22954pt.
-<Img/ziplaw2.PNG, id=63, 607.51968pt x 347.04657pt>
-File: Img/ziplaw2.PNG Graphic file (type png)
-<use Img/ziplaw2.PNG>
-Package pdftex.def Info: Img/ziplaw2.PNG  used on input line 75.
-(pdftex.def)             Requested size: 364.51462pt x 208.22954pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5 <./Img/Zipf_law_1.PNG>]
-<Img/preposttreatedinterpell.png, id=69, 607.51968pt x 347.04657pt>
+[5]
+<Img/ziplaw2.PNG, id=67, 607.51968pt x 347.04657pt>
+File: Img/ziplaw2.PNG Graphic file (type png)
+<use Img/ziplaw2.PNG>
+Package pdftex.def Info: Img/ziplaw2.PNG  used on input line 79.
+(pdftex.def)             Requested size: 364.51462pt x 208.22954pt.
+ [6 <./Img/Zipf_law_1.PNG> <./Img/ziplaw2.PNG>]
+<Img/preposttreatedinterpell.png, id=74, 607.51968pt x 347.04657pt>
 File: Img/preposttreatedinterpell.png Graphic file (type png)
 <use Img/preposttreatedinterpell.png>
-Package pdftex.def Info: Img/preposttreatedinterpell.png  used on input line 85
+Package pdftex.def Info: Img/preposttreatedinterpell.png  used on input line 89
 .
 (pdftex.def)             Requested size: 364.51462pt x 208.22954pt.
- [6 <./Img/ziplaw2.PNG> <./Img/preposttreatedinterpell.png>]
-<Img/prepostmuntligsporsmal.PNG, id=76, 607.51968pt x 347.04657pt>
+<Img/prepostmuntligsporsmal.PNG, id=75, 607.51968pt x 347.04657pt>
 File: Img/prepostmuntligsporsmal.PNG Graphic file (type png)
 <use Img/prepostmuntligsporsmal.PNG>
-Package pdftex.def Info: Img/prepostmuntligsporsmal.PNG  used on input line 91.
+Package pdftex.def Info: Img/prepostmuntligsporsmal.PNG  used on input line 95.
 
 (pdftex.def)             Requested size: 243.00356pt x 138.81616pt.
-<Img/prepostskriftligsporsmal.PNG, id=77, 607.51968pt x 347.04657pt>
+<Img/prepostskriftligsporsmal.PNG, id=76, 607.51968pt x 347.04657pt>
 File: Img/prepostskriftligsporsmal.PNG Graphic file (type png)
 <use Img/prepostskriftligsporsmal.PNG>
 Package pdftex.def Info: Img/prepostskriftligsporsmal.PNG  used on input line 9
-2.
+6.
 (pdftex.def)             Requested size: 243.00356pt x 138.81616pt.
-<Img/prepostsporretimesporsmal.PNG, id=78, 607.51968pt x 347.04657pt>
+<Img/prepostsporretimesporsmal.PNG, id=77, 607.51968pt x 347.04657pt>
 File: Img/prepostsporretimesporsmal.PNG Graphic file (type png)
 <use Img/prepostsporretimesporsmal.PNG>
 Package pdftex.def Info: Img/prepostsporretimesporsmal.PNG  used on input line 
-93.
+97.
 (pdftex.def)             Requested size: 243.00356pt x 138.81616pt.
 
-Overfull \hbox (4.92133pt too wide) in paragraph at lines 91--94
+Overfull \hbox (4.92133pt too wide) in paragraph at lines 95--98
 [][] []
  []
 
-[7 <./Img/prepostmuntligsporsmal.PNG> <./Img/prepostskriftligsporsmal.PNG> <./I
-mg/prepostsporretimesporsmal.PNG>] [8] (Task_2_Gard_Olav.aux)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[7 <./Img/preposttreatedinterpell.png>] [8 <./Img/prepostmuntligsporsmal.PNG> <
+./Img/prepostskriftligsporsmal.PNG> <./Img/prepostsporretimesporsmal.PNG>]
+[9] (Task_2_Gard_Olav.aux)
 Package rerunfilecheck Info: File `Task_2_Gard_Olav.out' has not changed.
-(rerunfilecheck)             Checksum: 19EBD339AE0A3B392B49E077D3B06E71;2559.
+(rerunfilecheck)             Checksum: B4E423D385990003C6430222F1D45FD4;2675.
  ) 
 Here is how much of TeX's memory you used:
- 9930 strings out of 475355
- 161072 string characters out of 2773482
+ 9931 strings out of 475355
+ 161078 string characters out of 2773482
  508598 words of memory out of 3000000
  31177 multiletter control sequences out of 15000+600000
  472173 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,7n,77p,1537b,439s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 72i,7n,77p,1539b,439s stack positions out of 10000i,1000n,20000p,200000b,80000s
 <C:/Users/gardi/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmbx12.pfb><C:/Users/gardi/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
 blic/amsfonts/cm/cmr12.pfb><C:/Users/gardi/AppData/Local/Programs/MiKTeX 2.9/fo
 nts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/gardi/AppData/Local/Programs/M
 iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on Task_2_Gard_Olav.pdf (8 pages, 123527 bytes).
+Output written on Task_2_Gard_Olav.pdf (9 pages, 125923 bytes).
 PDF statistics:
- 116 PDF objects out of 1000 (max. 8388607)
- 23 named destinations out of 1000 (max. 500000)
+ 120 PDF objects out of 1000 (max. 8388607)
+ 24 named destinations out of 1000 (max. 500000)
  95 words of extra memory for PDF output out of 10000 (max. 10000000)
 
