@@ -1,0 +1,30 @@
+<word>jeg</word>
+"<jeg>"
+	"jeg" pron ent pers hum nom 1
+<word>har</word>
+"<har>"
+	"ha" verb pres <aux1/perf_part>
+<word>to</word>
+"<to>"
+	"to" det fl kvant
+<word>gode</word>
+"<gode>"
+	"god" adj fl pos
+<word>føtter</word>
+"<føtter>"
+	"fot" subst appell mask ub fl
+<word>og</word>
+"<og>"
+	"og" konj
+<word>to</word>
+"<to>"
+	"to" det fl kvant
+<word>dårlige</word>
+"<dårlige>"
+	"dårlig" adj fl pos
+<word>hender</word>
+"<hender>"
+	"hånd" subst appell fem ub fl
+<word>.</word>
+"<.>"
+	"$." clb <<< <punkt> <<<
