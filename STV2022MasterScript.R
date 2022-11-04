@@ -480,3 +480,84 @@ save(tokensquestionsdfm, file = "data/questionsdfm.Rdata")
 
 save(tokensquestions, file = "C:/Users/gardi/OneDrive/Documents/STV2022/data/fulltokens.Rdata")
 save(tokensquestions2, file = "C:/Users/gardi/OneDrive/Documents/STV2022/data/fulltokenstrimmed.Rdata")
+
+
+
+####### ------------ Week 3 -------------------------
+
+## First step is to bring back our old pals from last week, 
+##so I start loading all the important dataset.
+
+load("C:/Users/gardi/OneDrive/Documents/STV2022/data/fulltokens.Rdata")
+load("C:/Users/gardi/OneDrive/Documents/STV2022/data/fulltokenstrimmed.Rdata")
+load("data/questionsdfm.Rdata")
+load("data/usedata.Rdata")
+
+### Turns out week 3 has no need for further coding, yay
+
+
+###### -------------- Week 4 ------------------------
+
+## Goal this week is to create the stm, and furthermore, 
+## create the attached visuals, and all the other important stuff
+
+## We start by attempting a to roughly estimate what is a prudent
+## number of topics to assign the model. To do this, I run a sample
+## function to see what gives the most semantic coherence and other
+## measures
+
+## Transforming the dfm into an stm format that can be used in a
+##searchK function
+
+stm_counts <- convert(tokensquestionsdfm, "stm")
+
+## Creating some random values
+
+K <- c(2, 5, 10, 30, 50, 70, 100, 150, 200)
+
+set.seed(6457)
+
+k_results <- searchK(documents = stm_counts$documents,
+                     vocab = stm_counts$vocab, K = K,
+                     data = stm_counts$meta)
+
+# Plotting these findings in ggplot
+
+searchplot <- tibble(Exclusivity = unlist(k_results$results$exclus),
+                            Coherence = unlist(k_results$results$semcoh),
+                            Heldout = unlist(k_results$results$heldout),
+                            Residual = unlist(k_results$results$residual),
+                            K = unlist(k_results$results$K)) %>% 
+  pivot_longer(., cols = c("Exclusivity", "Coherence", "Heldout", "Residual"))
+
+ggplot(searchplot, aes(x = K, y = value)) +
+  facet_wrap(~name, scales = "free_y") +
+  geom_point() +
+  geom_line() +
+  theme_classic() +
+  labs(y = NULL, x = "Antall emner")
+
+## When the good number of K has been found, run it through the stm
+
+topicmodel1 <- stm(tokensquestionsdfm, K = 100,
+                   prevalence = ~ factor(gender)
+                   init.type = "Spectral", max.em.its = 500,
+                   emtol = 1e-05, verbose = TRUE, reportevery = 10)
+
+## After that we uncover what this topic model has to reveal to us
+## start by turning it into a tidy table
+
+topicmodel1_topics <- tidy(topicmodel1, 
+                          matrix = "beta")
+
+tokenexploringframe <- topicmodel1_topics %>%
+  group_by(topic) %>% # Getting the top term per topic, thus using group_by
+  slice_max(beta, n = 10) %>% # Fetching the 10 terms with the highest beta
+  ungroup() # Ungrouping to get the dataframe back to normal
+
+
+tokenexploringframesub1 %>% 
+  ggplot(aes(label = term, size = beta)) + 
+  geom_text_wordcloud() + 
+  theme_minimal()
+

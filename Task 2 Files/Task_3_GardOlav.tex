@@ -13,7 +13,7 @@
 \setlength{\droptitle}{-6em}
 
 % Enter the specific assignment number and topic of that assignment below, and replace "Your Name" with your actual name.
-\title{Assignment 2: Pre-processing data in R}
+\title{Term Paper STV2022}
 \author{Gard Olav Dietrichson}
 \date{\today}
 
@@ -97,13 +97,27 @@
 		\includegraphics[scale=0.40]{Img/prepostsporretimesporsmal.PNG}
 	\end{figure}
 	
-
+	
 	\section{Discuss the pre-processing critically}
 	The pre-processing has not been without its own flaws. I will in this section address issues with both tokenizing, stemming and stopwords. First, tokenizing a text as I have done is most likely the most reductive way of processing a text. The assumption that all words are individual tokens, and their meanings not modified by their neighbours in contexts is highlighted by modifiers often used to convey essential meaning. "Not good" has a clear meaning, but tokenize it and you end up with "Not" and "Good" as separate tokens, and if you apply the bag of words notion, then that meaning can never truly be recovered. However, I maintain that this project does not need to rely on bigrams, given that topic modelling makes little to no assumption about qualifiers, and instead rely on primarily tokens to infer similar meaning. 
 	
 	The second issue is that of stemming. Stemming is a very simple procedure, as it simply removes what the lexicon identifies as an ending. Two problems become clear, the first is that of verbs that are conjugated irregularly, the second is that of combination words. The understanding of both of these in Norwegian is essential. Irregular conjugation for verbs are verbs that radically change their stem when conjugated in tenses. These verbs are not properly affected by stemming, since removing their ending do not make them into identical tokens to their true infinitive forms. This leads to failure to see two tokens as identical, when they in reality are, and even if there was something to get from keeping them in their proper tenses, the non-similar treatment across all verbs is a practical problem. The second stemming issue has to do with what the lexicon perceives as endings to a word, which are in fact combination words. The most illustrative example is "fastlege" or general practitioner, your general physician. "lege" in this instance is the Norwegian word for physician, however, in New-Norwegian, it is also an ending in a conjugated form of some adverbs. This leads to "fastlege" being stemmed into "fast" which is just the word for permanent, leading to a change in meaning from the word by the act of stemming it. The hope is that the topic model will still recognize the underlying meaning of it, based on its proximity to other relevant words, but it remains an issue. 
 	
 	Finally there is the issue of stopwords. My method for choosing stopwords may seem arbitrary, and to some degree it is. I encourage scrutiny over the choice of cut-off value in terms of the tf-idf score. 
+	
+	\section{Week 3 - Identify a strategy for analysing your data}
+	
+	The goal of this analysis is to investigate a latent grouping of several topics, that are not always directly categorizable, the Storting treats several different cases and topics each year, but they will often be related to an underlying common field of interest, such as women's issues. In order to properly assess the documents and their belonging topic, I have two main choices, a supervised machine learning model, and an unsupervised topic model. I choose the unsupervised topic model for several reasons. First it may be relevant to associate the topic with other topics that I discover during my analysis, if other topics appear in the analysis that could be of interest to my research, then a correlation between these topics might be an interesting find, especially over time. Second there is a time constraint that one needs to be mindful of, and to create a scheme by which I can accurately code a training set would require a lot of theoretical justifications behind it. 
+	
+	Uniquely, the STM package also allows us to introduce control and effect variables into the topic model, for that reason I will utilise this framework to analyse the interplay between gender and party when focusing on the topics that will be discovered using this model. The dependent variable will be the relative focus that each document affords to issues that I can accurately assess to belong to the category of "women's issues". This process largely draws inspiration from Finseraas et. al. (2021), which utilises the feature of the stm function in order to draw conclusions about the attention given by local MPs to certain topics, following a labour market shock.
+	
+	\section{Discuss advantages and disadvantages of your strategy}
+	
+	The advantage of the strategy chosen is that we could potentially receive a rather clear cut answer to the question, by simply looking at the resulting estimated effect that the model spits out. However, even if it is significant, and it turns out that even when controlling for party belonging, that women dedicate a substantially higher focus to what we will be able to accurately assess to be "women's issues" caution should still be exercised. The first issue has to do with the old adage "All models are wrong, but some are useful", a quote sometimes directly attributed to George Box. This quote is even more appropriate when discussing quantitative text analysis. While topic models might functionally be understood as uncovering "topics", what they actually do is concurrent incidents of word pairs, or word groups. Therefore, any analysis should always be critically interpreted, and researchers should be aware of what the model actually says, in addition to the underlying factors it hopefully reflects.
+	
+	The second issue has to do with the reliability of creating a unified understanding of "women's issues". By its very nature, it is difficult to sort that without having first viewed the data, but when viewed, the topics that are deigned to belong to that overarching meta-topic should be presented and properly argued to belong to the grouping. 
+	
+	Finally, a potential weakness of this strategy is the potential of failing to uncover the topics themselves. The model would require some fine tunings in order to accurately find all the relevant topics, and there is no guarantee per se, that any amount of tuning will inevitably lead to an accurate isolation of my topics of interest. 
 	
 	\section{Bibliography}
 	
@@ -116,6 +130,7 @@
 		
 		Pitkin, H. (1967). \textit{The Concept of Representation.} Berkeley: University of California Press
 		
+		Finseraas, H., Høyland, B. \& Søyland, M. (2021). Climate politics in hard times: How local economic shocks influence MPs attention to climate change. \textit{European Journal of Political Research, 60, pp. 738-747.}
 	}
-
+	
 \end{document}

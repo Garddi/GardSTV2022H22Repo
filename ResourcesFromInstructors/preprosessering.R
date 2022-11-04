@@ -149,7 +149,7 @@ stem2 <- tokenizers::tokenize_words("jeg har to gode føtter og to dårlige hend
 
 # spacy_eksempel
 
-tekst2 <- stortingscrape::read_obt("./data/lemmatisering/tekst2_tag.txt")
+tekst2 <- stortingscrape::read_obt("./data/tekst2_tag.txt")
 
 tekst2
 
