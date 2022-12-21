@@ -1,3 +1,13 @@
+---
+title: "R_Script_STV2022_17112"
+author: "Candidate Number 17112"
+date: '2022-11-30'
+output: pdf_document
+---
+
+This file is only a copy of the .R script that was made, since inspera failed to make .R script uploadable to this exam. I encourage the reader to paste the code into an R-script since thats how it was meant to be run. 
+
+```{r}
 ##### ------- Script for STV2022 Candidate Number: 17112 -----------
 
 ## Section 1: collecting data
@@ -954,4 +964,7 @@ exporttable <- data.frame(gndr = c(1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0),
                             return(y)
                           }))
 
+
+
+```
 
